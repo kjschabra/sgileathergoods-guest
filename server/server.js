@@ -11,6 +11,8 @@ Meteor.startup(() => {
       testRecord:true,
       addedOn: new Date(),
       productDescription: "Kobe Bryant aka BLACK MAMBA",
+      hidden:false,
+      deleted:false
     })
   }
 

@@ -12,7 +12,7 @@ export default class Products extends React.Component {
     if (this.props.imageLoading) {
       return <Loading/>;
     } else {
-      return <img src={this.props.image.url(store = "images")} alt="" className="img-responsive thumbnail" />;
+      return <img src={this.props.image.url(store = "images")} alt="" className="img-responsive thumbnail"/>;
     }
   }
   render() {
@@ -44,11 +44,14 @@ export default Products = createContainer(props => {
     productImages = {
       loading: true,
       data: []
-    };
-  let sub = Meteor.subscribe('productImagesById', imageIds);
-  let data = ProductImages.findOne({_id: imageIds});
+    },
+    sub, data;
+  if (imageIds && !_.isUndefined(imageIds)) {
+    sub = Meteor.subscribe('productImagesById', imageIds);
+    data = ProductImages.findOne({_id: imageIds});
+  }
   return {
-    imageLoading: !sub.ready(),
+    imageLoading: (!sub.ready() || false),
     image: data
   };
 }, Products);
