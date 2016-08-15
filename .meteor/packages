@@ -20,3 +20,7 @@ twbs:bootstrap
 react-meteor-data
 kadira:flow-router
 static-html
+cfs:standard-packages
+cfs:gridfs
+fortawesome:fontawesome
+tmeasday:publish-counts

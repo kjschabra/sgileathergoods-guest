@@ -8,6 +8,6 @@ import ProductsDisplay from './views/products-display.jsx';
 FlowRouter.route("/", {
   name: 'Welcome',
   action() {
-    mount(Layout, {content: <ProductsDisplay/> });
+    mount(Layout, {content: <ProductsDisplay /> });
   }
 });
