@@ -36,13 +36,11 @@ export default class ProductsDisplay extends React.Component {
     }
   }
   render() {
-    return <div className="col-md-12">
-      <h5 className="lead text-center text-muted">SGI Product Catalog</h5>
+    return <div>
       <div className="col-md-12">
         {this.renderProducts()}
       </div>
-      <div className="row">
-        <hr/>
+      <div className="col-md-12">
         {this.renderLoadMore()}
       </div>
     </div>
