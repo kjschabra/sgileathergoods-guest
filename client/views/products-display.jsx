@@ -69,6 +69,5 @@ export default ProductsDisplay = createContainer(props => {
     productsLoading: !sub.ready() || !sub2.ready(),
     limitOfProducts: limit,
     totalProducts: numberOfProducts,
-    test:true
   };
 }, ProductsDisplay);
