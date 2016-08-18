@@ -45,11 +45,8 @@ export default Products = createContainer(props => {
       loading: true,
       data: []
     },
-    sub, data;
-  if (imageIds && !_.isUndefined(imageIds)) {
-    sub = Meteor.subscribe('productImagesById', imageIds);
+    sub = Meteor.subscribe('productImagesById', imageIds),
     data = ProductImages.findOne({_id: imageIds});
-  }
   return {
     imageLoading: (!sub.ready() || false),
     image: data
