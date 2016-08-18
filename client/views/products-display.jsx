@@ -64,9 +64,10 @@ export default ProductsDisplay = createContainer(props => {
     }).fetch();
   let sub2 = Meteor.subscribe("countOfProducts"),
     numberOfProducts = Counts.get('numberOfProducts');
+
   return {
     products: product,
-    productsLoading: true,
+    productsLoading: (!sub.ready()),
     limitOfProducts: limit,
     totalProducts: numberOfProducts,
   };
