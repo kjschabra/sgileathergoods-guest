@@ -54,6 +54,7 @@ export default ProductsDisplay = createContainer(props => {
   // anything we return from this function will be *added* to it
   let limit = 50,
     sub = Meteor.subscribe('productsCollection', limit),
+    sub2 = Meteor.subscribe("countOfProducts"),
     product = ProductsCollection.find({
       deleted: false,
       hidden: false
@@ -61,13 +62,12 @@ export default ProductsDisplay = createContainer(props => {
       sort: {
         addedOn: -1
       }
-    }).fetch();
-  let sub2 = Meteor.subscribe("countOfProducts"),
+    }).fetch(),
     numberOfProducts = Counts.get('numberOfProducts');
 
   return {
     products: product,
-    productsLoading: false,
+    productsLoading: (!sub.ready() || !sub2.ready() ),
     limitOfProducts: limit,
     totalProducts: numberOfProducts,
   };

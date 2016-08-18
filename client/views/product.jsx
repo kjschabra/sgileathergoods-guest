@@ -48,7 +48,7 @@ export default Products = createContainer(props => {
     sub = Meteor.subscribe('productImagesById', imageIds),
     data = ProductImages.findOne({_id: imageIds});
   return {
-    imageLoading: (!sub.ready() || false),
+    imageLoading: !sub.ready(),
     image: data
   };
 }, Products);
