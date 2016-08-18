@@ -66,7 +66,7 @@ export default ProductsDisplay = createContainer(props => {
     numberOfProducts = Counts.get('numberOfProducts');
   return {
     products: product,
-    productsLoading: !sub.ready(),
+    productsLoading: true,
     limitOfProducts: limit,
     totalProducts: numberOfProducts,
   };
