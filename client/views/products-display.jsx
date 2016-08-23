@@ -32,14 +32,15 @@ export default class ProductsDisplay extends React.Component {
     if (this.props.productsLoading) {
       return <Loading/>
     } else {
-      return this.props.products.map((product) => (<Product key={product._id} data={product}/>));
+      return this.props.products.map(function(product, k){
+        return <Product key={product._id}  data={product} />
+
+      });
     }
   }
   render() {
     return <div>
-      <div className="col-md-12">
-        {this.renderProducts()}
-      </div>
+      {this.renderProducts()}
       <div className="col-md-12">
         {this.renderLoadMore()}
       </div>
