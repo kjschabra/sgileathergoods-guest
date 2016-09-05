@@ -16,9 +16,19 @@ export default class Products extends React.Component {
     }
   }
   displaySize() {
-    if (this.props.data && this.props.data.productSizeLength && this.props.data.productSizeLength !== "0" && this.props.data.productSizeWidth && this.props.data.productSizeWidth !== "0" && this.props.data.productSizeVolume && this.props.data.productSizeVolume !== "0") {
-      return this.props.data.productSizeLength + "in x " + this.props.data.productSizeWidth + "in x " + this.props.data.productSizeVolume + "in"
+    var length = "",
+      width = "",
+      volume = "";
+    if (this.props.data && this.props.data.productSizeLength && this.props.data.productSizeLength !== "0") {
+      length = this.props.data.productSizeLength + "in";
     }
+    if (this.props.data && this.props.data.productSizeWidth && this.props.data.productSizeWidth !== "0") {
+      width = " x " + this.props.data.productSizeWidth + "in";
+    }
+    if (this.props.data && this.props.data.productSizeVolume && this.props.data.productSizeVolume !== "0") {
+      volume = " x " + this.props.data.productSizeVolume + "in";
+    }
+    return length + " " + width + " " + volume;
   }
   render() {
     return <div className="col-xl-3 col-md-3 col-sm-3 col-xs-6">
