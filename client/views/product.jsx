@@ -15,11 +15,19 @@ export default class Products extends React.Component {
       return <img src={this.props.image.url(store = "images")} alt="" className="img-responsive thumbnail"/>;
     }
   }
+  displaySize() {
+    if (this.props.data && this.props.data.productSizeLength && this.props.data.productSizeLength !== "0" && this.props.data.productSizeWidth && this.props.data.productSizeWidth !== "0" && this.props.data.productSizeVolume && this.props.data.productSizeVolume !== "0") {
+      return this.props.data.productSizeLength + "in x " + this.props.data.productSizeWidth + "in x " + this.props.data.productSizeVolume + "in"
+    }
+  }
   render() {
-    return <div className="col-md-3">
+    return <div className="col-xl-3 col-md-3 col-sm-3 col-xs-6">
       {this.displayImage()}
+      <h6 className="text-right">
+        <span className="label label-primary">{this.props.data.productPrice}</span>
+      </h6>
       <h5 className="text-info">{this.props.data.productName}<br/>
-        <small className="text-primary">{this.props.data.productSizeLength}in x {this.props.data.productSizeWidth}in x {this.props.data.productSizeVolume}in</small><br/>
+        <small className="text-primary">{this.displaySize()}</small><br/>
       </h5>
       <h5>
         <small className="text-muted">Available in:
@@ -27,10 +35,6 @@ export default class Products extends React.Component {
         </small>
       </h5>
       <p className="text-muted">{this.props.data.productDescription}</p>
-      <h4 className="text-right">
-        <span className="label label-primary">{this.props.data.productPrice}</span>
-      </h4>
-      <hr/>
     </div>
   }
 }

@@ -1,6 +1,6 @@
 div.col-md-3{
   /* TODO: Figure out how we can create rows dynamically. this is a hack */
-  min-height: 500px;
+  min-height: 400px;
 }
 
 div.col-md-3 > p {
