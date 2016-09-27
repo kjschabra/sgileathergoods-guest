@@ -3,8 +3,13 @@ import {createContainer} from 'meteor/react-meteor-data';
 import {ProductsCollection} from '../../common/collections.js'
 import Product from './product.jsx';
 import Loading from '../components/loading.jsx';
+import {DocHead} from 'meteor/kadira:dochead';
+
+
+
 export default class ProductsDisplay extends React.Component {
   componentDidMount() {
+    DocHead.addMeta({name:"viewport", content:"width=device-width, initial-scale=1"} );
     return null;
   }
   loadMoreProducts(event) {

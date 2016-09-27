@@ -3,6 +3,7 @@ import {Meteor} from 'meteor/meteor';
 import {createContainer} from 'meteor/react-meteor-data';
 import {ProductImages} from '../../common/collections.js';
 import Loading from '../components/loading.jsx';
+
 export default class Products extends React.Component {
   componentDidMount() {
     $('[data-toggle="tooltip"]').tooltip();

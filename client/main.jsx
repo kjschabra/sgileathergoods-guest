@@ -15,8 +15,10 @@ export const Layout = ({content}) => (
         </div>
       </div>
     </nav>
-    <div className="container">
-      <div className="row" style={{marginTop:100+"px"}}>{content}</div>
+    <div className="container-fluid">
+      <div className="row" style={{
+        marginTop: 100 + "px"
+      }}>{content}</div>
     </div>
   </div>
-);
+)
