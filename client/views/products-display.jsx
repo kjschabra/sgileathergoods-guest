@@ -1,6 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
-import {ProductsCollection} from '../../common/collections.js'
+import {ProductsCollection, SGIProductCollection, ProductType, ProductGender} from '../../common/collections.js'
 import Product from './product.jsx';
 import Loading from '../components/loading.jsx';
 import {DocHead} from 'meteor/kadira:dochead';
@@ -8,73 +8,102 @@ import {DocHead} from 'meteor/kadira:dochead';
 
 
 export default class ProductsDisplay extends React.Component {
-  componentDidMount() {
-    DocHead.addMeta({name:"viewport", content:"width=device-width, initial-scale=1"} );
-    return null;
+  constructor(props) {
+    super(props);
+    this.state = {
+      products : undefined,
+      active: undefined
+    };
   }
-  loadMoreProducts(event) {
-    let limitOfProducts = parseInt(this.props.limitOfProducts),
-        totalProducts = parseInt(this.props.totalProducts);
-    let numberOfProductsToSub = limitOfProducts + 20;
-    if (numberOfProductsToSub >= totalProducts) {
-      numberOfProductsToSub = totalProducts;
-    }
-    this.props.limitOfProducts = numberOfProductsToSub;
-    Meteor.subscribe("productsCollection", numberOfProductsToSub);
-  }
-  renderLoadMore() {
-      let limitOfProducts = parseInt(this.props.limitOfProducts),
-          totalProducts = parseInt(this.props.totalProducts);
-      let numberOfProductsToSub = limitOfProducts + 20;
-      if (numberOfProductsToSub >= totalProducts) {
-        numberOfProductsToSub = totalProducts;
-      }
-      if (limitOfProducts < totalProducts ) {
-        return <button className="btn btn-lg btn-primary pull-right" onClick={this.loadMoreProducts.bind(this)}>Load More</button>
-      }
-  }
-  renderProducts() {
-    if (this.props.productsLoading) {
-      return <Loading/>
-    } else {
-      return this.props.products.map(function(product, k){
-        return <Product key={product._id}  data={product} />
+  setDisplayToCollection(evt) {
+    let value = evt.target.dataset.display;
 
+    if (this.state && this.state.products && this.state.active && this.state.active === value) {
+      this.setState({products: undefined, active: undefined});
+    } else {
+      this.setState({
+        products: ProductsCollection.find({collection:value},{sort: {addedOn: -1} }).fetch(),
+        active: value
       });
     }
   }
+  renderFilters() {
+    let self = this;
+    return <ul className="list-inline text-left">
+      {this.props.productCollection.map(function(collection, k) {
+        let activeClass = "";
+        if (self.state.active && self.state.active === collection._id) {
+          activeClass = collection.activeButtonClass+"-active";
+        } else {
+          activeClass= collection.activeButtonClass;
+        }
+        return <li key={k}>
+          <button className={"btn btn-lg "+activeClass} onClick={self.setDisplayToCollection.bind(self)} data-display={collection._id}>
+            {collection.name}
+          </button>
+        </li>
+      })}
+    </ul>
+  }
+  renderProducts() {
+
+    let self = this;
+    let displayObj = undefined
+    if (this.props.productsLoading) {
+      return <Loading/>;
+    } else if (this.state.products) {
+      displayObj = this.state.products;
+    } else {
+      displayObj = this.props.products;
+    }
+    return displayObj.map(function(product, k){
+        return <Product key={product._id}
+                        data={product}
+                        productCollection={self.props.productCollection}
+                        productGender={self.props.productGender}
+                        productType={self.props.productType} />
+      });
+  }
   render() {
     return <div>
-      {this.renderProducts()}
       <div className="col-md-12">
-        {this.renderLoadMore()}
+        {this.renderFilters()}
+        <hr/>
       </div>
+      {this.renderProducts()}
     </div>
   }
 }
 ProductsDisplay.propTypes = {
-  //products: PropTypes.array.isRequired,
 }
 export default ProductsDisplay = createContainer(props => {
   // props here will have `main`, passed from the router
   // anything we return from this function will be *added* to it
-  let limit = 50,
-    sub = Meteor.subscribe('productsCollection', limit),
-    sub2 = Meteor.subscribe("countOfProducts"),
-    product = ProductsCollection.find({
-      deleted: false,
-      hidden: false
-    }, {
+  let numberOfProducts      = Counts.get('numberOfProducts'),
+      sub                   = Meteor.subscribe('productsCollection', numberOfProducts),
+      sub2                  = Meteor.subscribe("countOfProducts"),
+      productCollectionSub  = Meteor.subscribe('sgiProductCollection'),
+      productTypeSub        = Meteor.subscribe('productType'),
+      productGenderSub      = Meteor.subscribe('productGender');
+
+  let productQuery = {
+    deleted:false,
+    hidden: false,
+  };
+
+  let product = ProductsCollection.find(
+    productQuery,
+    {
       sort: {
         addedOn: -1
       }
-    }).fetch(),
-    numberOfProducts = Counts.get('numberOfProducts');
+    }).fetch();
 
   return {
-    products: product,
-    productsLoading: (!sub.ready() || !sub2.ready() ),
-    limitOfProducts: limit,
-    totalProducts: numberOfProducts,
+    productsLoading   : !sub.ready() || !sub2.ready() || !productCollectionSub.ready() || !productTypeSub.ready() || !productGenderSub.ready(),
+    products          : product,
+    productCollection : SGIProductCollection.find().fetch(),
+    productType       : ProductType.find().fetch(),
+    productGender     : ProductGender.find().fetch()
   };
 }, ProductsDisplay);

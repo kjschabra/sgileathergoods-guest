@@ -1,9 +1,104 @@
-div.col-md-3{
+div.col-md-3 {
   /* TODO: Figure out how we can create rows dynamically. this is a hack */
-  min-height: 415px;
+  min-height: 445px;
 }
 
 div.col-md-3 > p {
   font-size: 0.85em;
-  height:50px;
+  height: 50px;
+}
+
+.male-font {
+  color: #9BE5C9;
+}
+
+.male-bg {
+  color: #FFF;
+  background: #9BE5C9;
+}
+
+.female-font {
+  color: #FF9999;
+}
+
+.female-bg {
+  color: #FFF;
+  background: #FF9999;
+}
+
+button:focus {
+  outline: 0
+}
+
+;
+.collection {}
+
+button:focus {
+  outline: 0 !important;
+}
+
+/*.btn-default:active, .btn-default.active, .open > .dropdown-toggle.btn-default ,.btn-default.focus, btn-default:focus {
+  color: none !important;
+  background-color: none !important;
+  border-color: none !important;
+}*/
+
+.paris-collection-img-border {
+  border: 1px solid rgba(127, 22, 55, 0.3);
+}
+
+.paris-collection-button {
+  color: rgba(127, 22, 55, 1.0) !important;
+  background-color: #FFF !important;
+  border: 1px solid rgba(127, 22, 55, 1.0) !important;
+}
+
+.paris-collection-button-active, .paris-collection-button:hover {
+  color: #FFF !important;
+  background: rgba(127, 22, 55, 0.9) !important;
+}
+
+.safari-collection-img-border {
+  border: 1px solid rgba(99, 38, 12, 0.3);
+}
+
+.safari-collection-button {
+  color: rgba(99, 38, 12, 1.0) !important;
+  background: #FFF !important;
+  border: 1px solid rgba(99, 38, 12, 1.0) !important;
+}
+
+.safari-collection-button-active, .safari-collection-button:hover {
+  color: #FFF !important;
+  background: rgba(99, 38, 12, 0.9) !important;
+}
+
+.eternity-collection-img-border {
+  border: 1px solid rgba(4, 120, 120, 0.3);
+}
+
+.eternity-collection-button {
+  color: rgba(4, 120, 120, 1.0) !important;
+  background: #FFF !important;
+  border: 1px solid rgba(4, 120, 120, 1.0) !important;
+}
+
+.eternity-collection-button-active, .eternity-collection-button:hover {
+  color: #FFF !important;
+  background: rgba(4, 120, 120, 0.9) !important;
+}
+
+.sgi-brand-img-border {
+  border: 1px solid rgba(95, 40, 216, 0.3);
+}
+
+.sgi-brand-collection-button {
+  color: rgba(95, 40, 216, 1.0) !important;
+  background: #FFF !important;
+  border: 1px solid rgba(95, 40, 216, 1.0) !important;
+}
+
+.sgi-brand-collection-button-active, .sgi-brand-collection-button:hover {
+  color: #FFF !important;
+  background: rgba(95, 40, 216, 0.9) !important;
 }

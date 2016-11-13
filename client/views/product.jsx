@@ -1,7 +1,7 @@
-import React, {Component, PropTypes} from 'react';
-import {Meteor} from 'meteor/meteor';
-import {createContainer} from 'meteor/react-meteor-data';
-import {ProductImages} from '../../common/collections.js';
+import React, { Component, PropTypes } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { createContainer } from 'meteor/react-meteor-data';
+import { ProductImages } from '../../common/collections.js';
 import Loading from '../components/loading.jsx';
 
 export default class Products extends React.Component {
@@ -13,7 +13,7 @@ export default class Products extends React.Component {
     if (this.props.imageLoading) {
       return <Loading/>;
     } else {
-      return <img src={this.props.image.url(store = "images")} alt="" className="img-responsive thumbnail"/>;
+      return <img src={this.props.image.url(store = "images")} alt="" className={this.getProductImgClass()+ " img-responsive thumbnail "}/>;
     }
   }
   displaySize() {
@@ -31,12 +31,68 @@ export default class Products extends React.Component {
     }
     return length + " " + width + " " + volume;
   }
+  getProductDesc() {
+    if (this.props && this.props.data && this.props.data.productDescription) {
+      if (!this.props.data.productDescription.includes('Test')) {
+        return this.props.data.productDescription;
+      }
+    }
+  }
+  getProductGender() {
+    let self = this;
+    if (self.props.productGender && self.props.data) {
+      let obj = _.where(self.props.productGender, { _id: self.props.data.productGender });
+      if (obj[0] && obj[0].name === "Mens") {
+        return <span className="label male-bg">
+        <i className="fa fa-male"></i>
+      </span>
+      } else if (obj[0] && obj[0].name === "Women") {
+        return <span className="label female-bg">
+        <i className="fa fa-female"></i>
+      </span>
+      } else {
+        return <ul className="list-inline">
+        <li>
+          <span className="label female-bg">
+            <i className="fa fa-female"></i>
+          </span>
+        </li>
+        <li>
+          <span className="label male-bg">
+            <i className="fa fa-male"></i>
+          </span>
+        </li>
+      </ul>
+      }
+    }
+  }
+  getProductImgClass() {
+    let self = this;
+    if (self.props.productCollection && self.props.data) {
+      let obj = _.where(self.props.productCollection, { _id: self.props.data.collection });
+      if (obj[0] && !_.isEmpty(obj[0])) {
+        if (obj[0].name === "Paris Collection") {
+          return "collection paris-collection-img-border";
+        } else if (obj[0].name === "Safari Collection") {
+          return "collection safari-collection-img-border";
+        } else if (obj[0].name === "Eternity Collection") {
+          return "collection eternity-collection-img-border";
+        } else {
+          return "collection sgi-brand-img-border";
+        }
+      }
+    }
+
+  }
   render() {
-    return <div className="col-xl-3 col-md-3 col-sm-3 col-xs-6">
+    return <div className=" col-xl-3 col-md-3 col-sm-3 col-xs-6">
       {this.displayImage()}
-      <h6 className="text-right">
-        <span className="label label-primary">{this.props.data.productPrice}</span>
-      </h6>
+      <h4 className="text-right">
+        <ul className="list-inline">
+          <li>{this.getProductGender()}</li>
+          <li><span className="label label-primary">{this.props.data.productPrice}</span></li>
+        </ul>
+      </h4>
       <h5 className="text-info">{this.props.data.productName}<br/>
         <small className="text-primary">{this.displaySize()}</small><br/>
       </h5>
@@ -45,13 +101,13 @@ export default class Products extends React.Component {
           <strong>&nbsp;{this.props.data.productColor}</strong>
         </small>
       </h5>
-      <p className="text-muted">{this.props.data.productDescription}</p>
-    </div>
+      <p className="text-muted">{this.getProductDesc()}</p>
+    </div>;
   }
 }
-// Products.propTypes = {
-//
-// }
+  // Products.propTypes = {
+  //
+  // }
 export default Products = createContainer(props => {
   // props here will have `main`, passed from the router
   // anything we return from this function will be *added* to it
@@ -60,10 +116,10 @@ export default Products = createContainer(props => {
       loading: true,
       data: []
     },
-    sub = Meteor.subscribe('productImagesById', imageIds),
-    data = ProductImages.findOne({_id: imageIds});
+    sub = Meteor.subscribe('productImagesById', imageIds);
+
   return {
     imageLoading: !sub.ready(),
-    image: data
+    image: ProductImages.findOne({ _id: imageIds }),
   };
 }, Products);

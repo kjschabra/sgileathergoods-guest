@@ -1,6 +1,6 @@
 import React from 'react';
 // define and export our Layout component
-export const Layout = ({content}) => (
+export const Layout = ({ content }) => (
   <div>
     <nav className="navbar navbar-default navbar-fixed-top">
       <div className="container-fluid">
@@ -16,9 +16,7 @@ export const Layout = ({content}) => (
       </div>
     </nav>
     <div className="container-fluid">
-      <div className="row" style={{
-        marginTop: 100 + "px"
-      }}>{content}</div>
+      <div className="row" style={{marginTop: 100 + "px"}}>{content}</div>
     </div>
   </div>
 )
