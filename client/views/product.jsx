@@ -4,7 +4,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { ProductImages } from '../../common/collections.js';
 import Loading from '../components/loading.jsx';
 
-export default class Products extends React.Component {
+export class Product extends React.Component {
   componentDidMount() {
     $('[data-toggle="tooltip"]').tooltip();
     return null;
@@ -13,7 +13,13 @@ export default class Products extends React.Component {
     if (this.props.imageLoading) {
       return <Loading/>;
     } else {
-      return <img src={this.props.image.url(store = "images")} alt="" className={this.getProductImgClass()+ " img-responsive thumbnail "}/>;
+      return <img onClick={this.props.loadModal}
+                  data-product-id={this.props.data._id}
+                  data-image-id={this.props.image._id}
+                  src={this.props.image.url(store = "images")}
+                  alt=""
+                  className={this.getProductImgClass()+ " img-responsive thumbnail "}
+                  />;
     }
   }
   displaySize() {
@@ -105,10 +111,8 @@ export default class Products extends React.Component {
     </div>;
   }
 }
-  // Products.propTypes = {
-  //
-  // }
-export default Products = createContainer(props => {
+
+export default Product = createContainer(props => {
   // props here will have `main`, passed from the router
   // anything we return from this function will be *added* to it
   let imageIds = props.data.productImageId,
@@ -122,4 +126,4 @@ export default Products = createContainer(props => {
     imageLoading: !sub.ready(),
     image: ProductImages.findOne({ _id: imageIds }),
   };
-}, Products);
+}, Product);

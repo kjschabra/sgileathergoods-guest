@@ -15,6 +15,9 @@ if (Meteor.isServer) {
       limit: (limit || 50)
     })
   });
+  Meteor.publish('productById', function(productId) {
+    return ProductsCollection.find({_id:productId});
+  })
   Meteor.publish('productImagesById', function(imageId) {
     return ProductImages.find({ _id: imageId });
   });

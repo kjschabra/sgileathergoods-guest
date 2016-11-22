@@ -2,17 +2,22 @@ import React, {Component, PropTypes} from 'react';
 import {createContainer} from 'meteor/react-meteor-data';
 import {ProductsCollection, SGIProductCollection, ProductType, ProductGender} from '../../common/collections.js'
 import Product from './product.jsx';
+import Modal from '../components/modal.jsx';
 import Loading from '../components/loading.jsx';
 import {DocHead} from 'meteor/kadira:dochead';
 
 
 
-export default class ProductsDisplay extends React.Component {
+export class ProductsDisplay extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products : undefined,
-      active: undefined
+      active: undefined,
+      modal:{
+        productId: null,
+        imageId: null
+      }
     };
   }
   setDisplayToCollection(evt) {
@@ -45,8 +50,18 @@ export default class ProductsDisplay extends React.Component {
       })}
     </ul>
   }
-  renderProducts() {
+  loadModal(evt) {
+    let productId = evt.target.dataset.productId,
+        imageId = evt.target.dataset.imageId;
 
+    this.setState({modal: {productId:productId, imageId:imageId } } );
+
+    $('.modal').modal('toggle');
+  }
+  checkModal() {
+    return <Modal productId={this.state.modal.productId || ""} imageId={this.state.modal.imageId || ""}/>
+  }
+  renderProducts() {
     let self = this;
     let displayObj = undefined
     if (this.props.productsLoading) {
@@ -61,11 +76,13 @@ export default class ProductsDisplay extends React.Component {
                         data={product}
                         productCollection={self.props.productCollection}
                         productGender={self.props.productGender}
-                        productType={self.props.productType} />
-      });
+                        productType={self.props.productType}
+                        loadModal={self.loadModal.bind(this)} />
+      }, this);
   }
   render() {
     return <div>
+      {this.checkModal()}
       <div className="col-md-12">
         {this.renderFilters()}
         <hr/>
