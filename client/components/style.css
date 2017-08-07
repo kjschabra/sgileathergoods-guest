@@ -1,3 +1,35 @@
+#intro {
+  min-height: 500px;
+  background: url(images/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color:#FFF;
+  padding: 10% 10% 2% 10%;
+}
+#main-heading {
+  font-size: 5em;
+  line-height: 0.9em;
+  font-weight: lighter;
+  color:#FFF;
+}
+#main-heading > small {
+  font-size: 0.5em;
+  color:#CCC;
+}
+div#catalog-title {
+  background-color: #000;
+  color: #FFF;
+}
+div#catalog-title h2 {
+  color: #FFF;
+  font-weight: lighter;
+  font-size: 3em;
+}
+div#product-filters{
+  margin-top: 1%;
+}
 div.col-md-3 {
   /* TODO: Figure out how we can create rows dynamically. this is a hack */
   min-height: 445px;

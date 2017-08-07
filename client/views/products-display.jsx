@@ -83,7 +83,34 @@ export class ProductsDisplay extends React.Component {
   render() {
     return <div>
       {this.checkModal()}
-      <div className="col-md-12">
+      <div id="intro" className="col-sm-12">
+        <h1 className="text-center" id="main-heading">SGI Leather Goods Inc.
+          <br/>
+          <br/>
+          <small className="text-muted"><em>Importers & Distributors of Fine Quality Leather Goods</em></small>
+        </h1>
+        <div style={{marginTop: '100px'}}>
+          <div className="col-sm-6">
+            <p className="mb-0"><span className="glyphicon glyphicon-globe"></span> 4 Muscovy Drive, <br/>
+            Brampton ON. L7A 4M3
+            </p>
+          </div>
+          <div className="col-sm-6">
+            <p className="text-right"><span className="glyphicon glyphicon-envelope">
+            </span> sginternational@rogers.com<br/>
+            <span className="glyphicon glyphicon-phone-alt"></span> 416-902-7446
+            </p>
+          </div>
+        </div>
+        <hr/>
+        <p className="lead text-center">
+          <span className="glyphicon glyphicon-chevron-down"></span>
+        </p>
+      </div>
+      <div id="catalog-title" className="col-sm-12">
+        <h2 className="text-center">Catalog</h2>
+      </div>
+      <div id="product-filters" className="col-sm-12">
         {this.renderFilters()}
         <hr/>
       </div>

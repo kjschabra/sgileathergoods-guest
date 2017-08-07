@@ -38,7 +38,6 @@ export class Modal extends React.Component {
     }
   }
   render() {
-    console.log(this.props.image);
     return <div className="modal fade picture-modal" tabIndex="-1" role="dialog" aria-labelledby="picture-modal">
       <div className="modal-dialog" role="document">
         <div className="modal-content">
