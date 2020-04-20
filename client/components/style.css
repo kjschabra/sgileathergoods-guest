@@ -1,6 +1,6 @@
 #intro {
   min-height: 500px;
-  background: url(images/bg.jpg) no-repeat center center fixed; 
+  background: url(images/bg.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -133,4 +133,9 @@ button:focus {
 .sgi-brand-collection-button-active, .sgi-brand-collection-button:hover {
   color: #FFF !important;
   background: rgba(95, 40, 216, 0.9) !important;
+}
+
+a, a:hover, a:active {
+  color: #FFF !important;
+  text-decoration: none !important;
 }

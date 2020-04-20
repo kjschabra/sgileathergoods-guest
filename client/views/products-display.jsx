@@ -91,13 +91,13 @@ export class ProductsDisplay extends React.Component {
         </h1>
         <div style={{marginTop: '100px'}}>
           <div className="col-sm-6">
-            <p className="mb-0"><span className="glyphicon glyphicon-globe"></span> 4 Muscovy Drive, <br/>
-            Brampton ON. L7A 4M3
+            <p className="mb-0"><span className="glyphicon glyphicon-globe"></span> 23 Albery Road, <br/>
+            Brampton ON. L7A 0K7
             </p>
           </div>
           <div className="col-sm-6">
             <p className="text-right"><span className="glyphicon glyphicon-envelope">
-            </span> sginternational@rogers.com<br/>
+            </span> <a href="mailto:sgileathergoods@gmail.com">sgileathergoods@gmail.com</a><br/>
             <span className="glyphicon glyphicon-phone-alt"></span> 416-902-7446
             </p>
           </div>
